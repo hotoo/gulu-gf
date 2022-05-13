@@ -2,6 +2,8 @@
 
 Vim goto file for gulu, support router, controllers, service.
 
+![screenshot](./assets/screenshot.gif)
+
 ## INSTALL
 
 By vim-plug:
