@@ -10,7 +10,7 @@ By vim-plug:
 
 ```viml
 Plug 'hotoo/jsgf.vim'
-Plug 'hotoo/gulu-gf.vim'
+Plug 'hotoo/gulu-gf.vim', { 'for': ['javascript', 'typescript'] }
 ```
 
 By [Vundle](https://github.com/VundleVim/Vundle.vim)
