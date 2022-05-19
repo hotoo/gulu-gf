@@ -9,7 +9,7 @@ Vim goto file for gulu, support router, controllers, service.
 By vim-plug:
 
 ```viml
-Plug 'hotoo/jsgf.vim'
+Plug 'hotoo/jsgf.vim', { 'for': ['javascript', 'javascriptreat', 'typescript', 'typescriptreact', 'json'] }
 Plug 'hotoo/gulu-gf.vim', { 'for': ['javascript', 'typescript'] }
 ```
 
