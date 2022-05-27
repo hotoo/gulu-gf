@@ -8,16 +8,19 @@ function! GetPlusCmd(methodName)
 endfunction
 
 function! ReplaceProxyPath(fname)
+  " Replace root alias name like '@/mode-name' to '<ROOT>/mode-name'
+  let filename = substitute(a:fname, '^@\/', '', '')
+
   " ctx.service:
   " - this.ctx.service.${filePathName}.${methodName}
   " + app/service/${facadeName}.js
   let re_gulu = '\(\(this\.\)\?ctx\.\|this\.\)\?\(service\)\.\([a-zA-Z0-9_\$\.]\+\)\.\([a-zA-Z0-9_\$]\+\)$'
 
-  if matchstr(a:fname, re_gulu) != ''
-    let filePath = substitute(a:fname, re_gulu, '\3/\4', '')
+  if matchstr(filename, re_gulu) != ''
+    let filePath = substitute(filename, re_gulu, '\3/\4', '')
     let filePath = substitute(filePath, '\.', '/', 'g')
 
-    let methodName = substitute(a:fname, re_gulu, '\5', '')
+    let methodName = substitute(filename, re_gulu, '\5', '')
     let b:jsgf_plus_cmd = GetPlusCmd(methodName)
 
     return filePath
@@ -25,17 +28,17 @@ function! ReplaceProxyPath(fname)
 
   " app.controller -> app/controller
   let re_controller = '\(\(this\.\)\?app\.\)\?\(controller\?\)\.\([a-zA-Z0-9\._]\+\)\.\(\w\+\)$'
-  if matchstr(a:fname, re_controller) != ''
-    let filePath = substitute(a:fname, re_controller, 'controller/\4', '')
+  if matchstr(filename, re_controller) != ''
+    let filePath = substitute(filename, re_controller, 'controller/\4', '')
     let filePath = substitute(filePath, '\.', '/', 'g')
 
-    let methodName = substitute(a:fname, re_controller, '\5', '')
+    let methodName = substitute(filename, re_controller, '\5', '')
     let b:jsgf_plus_cmd = GetPlusCmd(methodName)
 
     return './' . filePath
   endif
 
-  return a:fname
+  return filename
 endfunction
 
 " Gulu 的 controller, service 定义文件跳转
